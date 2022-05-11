@@ -2,6 +2,7 @@
 
 #include "Card.h"
 #include "CardItem.h"
+#include "MainWindow.h"
 
 #include <QtWidgets>
 
@@ -85,6 +86,7 @@ void CardPileItem::dropEvent(QGraphicsSceneDragDropEvent* event)
   Card card = *(Card*)event->mimeData()->property("card").data();
 
   if(m_pile.add(card)) {
+    window()->removeCardItem(card);
     update();
     event->setAccepted(true);
   } else {

@@ -14,6 +14,8 @@ public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
+  void removeCardItem(Card card);
+
 private:
   void initializeGame();
   void addComponents();

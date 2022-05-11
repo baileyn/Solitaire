@@ -28,6 +28,20 @@ MainWindow::~MainWindow()
   delete m_scene;
 }
 
+void MainWindow::removeCardItem(Card card)
+{
+  for(auto item : m_scene->items()) {
+    CardItem* cardItem = dynamic_cast<CardItem*>(item);
+
+    if(cardItem) {
+      if(cardItem->card().getRank() == card.getRank() &&
+         cardItem->card().getSuit() == card.getSuit()) {
+        m_scene->removeItem(cardItem);
+      }
+    }
+  }
+}
+
 void MainWindow::initializeGame()
 {
   m_deck.shuffle();

@@ -3,13 +3,17 @@
 #include "Card.h"
 #include "CardItem.h"
 #include <QBrush>
+#include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStaticText>
 
-CardPileItem::CardPileItem(CardPile& pile)
-  : m_pile{pile}
-{
+#include <algorithm>
+#include <iostream>
 
+CardPileItem::CardPileItem(MainWindow* window, CardPile& pile)
+  : GameItem{window}, m_pile{pile}
+{
 }
 
 void CardPileItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -61,4 +65,19 @@ QRectF CardPileItem::boundingRect() const
   }
 
   return QRectF{0, 0, CardItem::WIDTH, height};
+}
+
+size_t CardPileItem::mouseClickToCardIndex(QGraphicsSceneMouseEvent* event)
+{
+  return std::min(static_cast<size_t>(event->pos().y() / PADDING), m_pile.count() - 1);
+}
+
+void CardPileItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+  auto cardIdx = mouseClickToCardIndex(event);
+  QPointF origin = pos();
+
+  std::cout << cardIdx << std::endl;
+
+  scene()->addRect(origin.x(), origin.y(), CardItem::WIDTH, cardIdx * PADDING);
 }

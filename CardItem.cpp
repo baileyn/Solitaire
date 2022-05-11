@@ -11,8 +11,8 @@ QBrush CardItem::BACK = QBrush{Qt::blue};
 QPen CardItem::RED_PEN = QPen{Qt::red};
 QPen CardItem::BLACK_PEN = QPen{Qt::black};
 
-CardItem::CardItem(Card card)
-  : m_card{card}
+CardItem::CardItem(MainWindow* window, Card card)
+  : GameItem{window}, m_card{card}
 {
   setFlag(GraphicsItemFlag::ItemIsMovable);
 }

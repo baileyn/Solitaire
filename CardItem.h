@@ -2,12 +2,13 @@
 #define CARDITEM_H
 
 #include "Card.h"
+#include "GameItem.h"
 
 #include <QBrush>
 #include <QGraphicsItem>
 #include <QPen>
 
-class CardItem : public QGraphicsItem
+class CardItem : public GameItem
 {
 public:
   static QString RANKS[];
@@ -18,7 +19,7 @@ public:
   static const int WIDTH = 70;
   static const int HEIGHT = 100;
 
-  CardItem(Card card);
+  CardItem(MainWindow* window, Card card);
 
   QRectF boundingRect() const;
   void paint(QPainter *painter,

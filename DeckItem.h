@@ -2,13 +2,13 @@
 #define DECKITEM_H
 
 #include "Deck.h"
-#include <QGraphicsItem>
+#include "GameItem.h"
 #include <QPainter>
 
-class DeckItem : public QGraphicsItem
+class DeckItem : public GameItem
 {
 public:
-  DeckItem(Deck& deck);
+  DeckItem(MainWindow* window, Deck& deck);
 
   QRectF boundingRect() const;
   void paint(QPainter *painter,

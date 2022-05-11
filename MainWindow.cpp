@@ -45,10 +45,10 @@ void MainWindow::initializeGame()
 
 void MainWindow::addComponents()
 {
-  auto deck = new DeckItem{m_deck};
+  auto deck = new DeckItem{this, m_deck};
 
   for(size_t i = 0; i < Tableau::PILE_COUNT; i++) {
-    auto pile = new CardPileItem{m_tableau.getPile(i)};
+    auto pile = new CardPileItem{this, m_tableau.getPile(i)};
     pile->moveBy((CardItem::WIDTH + TableauItem::PADDING) * (i + 1), CardItem::HEIGHT + TableauItem::PADDING);
     m_scene->addItem(pile);
   }

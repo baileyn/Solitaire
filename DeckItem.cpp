@@ -4,8 +4,8 @@
 #include <QBrush>
 #include <QGraphicsScene>
 
-DeckItem::DeckItem(Deck& deck)
-  : m_deck{deck}
+DeckItem::DeckItem(MainWindow* window, Deck& deck)
+  : GameItem{window}, m_deck{deck}
 {
 
 }
@@ -37,7 +37,7 @@ void DeckItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
   auto card = m_deck.draw();
   card.flip();
 
-  CardItem* item = new CardItem{card};
+  CardItem* item = new CardItem{window(), card};
   item->moveBy(0, boundingRect().height() + 10);
   scene()->addItem(item);
 

@@ -76,7 +76,7 @@ void MainWindow::initializeGame()
       pile.add(m_deck.draw(), false);
     }
 
-    pile.top().flip();
+    pile.getTop().flip();
   }
 }
 

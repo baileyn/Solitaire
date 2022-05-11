@@ -15,7 +15,7 @@ std::deque<Card>& CardPile::cards()
   return m_cards;
 }
 
-Card& CardPile::top()
+Card& CardPile::getTop()
 {
   return m_cards.back();
 }

@@ -15,6 +15,6 @@ bool FoundationPile::accepts(const Card& card)
     return card.getRank() == Card::ACE;
   }
 
-  return (static_cast<int>(top().getRank()) + 1 ==
-      static_cast<int>(card.getRank())) && top().getSuit() == card.getSuit();
+  return (static_cast<int>(getTop().getRank()) + 1 ==
+      static_cast<int>(card.getRank())) && getTop().getSuit() == card.getSuit();
 }

@@ -22,7 +22,7 @@ void FoundationPileItem::paint(QPainter* painter, const QStyleOptionGraphicsItem
     painter->setPen(CardItem::BLACK_PEN);
     painter->drawRect(boundingRect());
   } else {
-    CardItem::draw(painter, m_pile.top(), 0, 0);
+    CardItem::draw(painter, m_pile.getTop(), 0, 0);
   }
 }
 

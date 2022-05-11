@@ -11,6 +11,6 @@ bool TableauPile::accepts(const Card& card)
     return card.getRank() == Card::KING;
   }
 
-  return top().isFlipped() && (top().isBlack() != card.isBlack()) &&
-      (static_cast<int>(top().getRank()) - 1 == static_cast<int>(card.getRank()));
+  return getTop().isFlipped() && (getTop().isBlack() != card.isBlack()) &&
+      (static_cast<int>(getTop().getRank()) - 1 == static_cast<int>(card.getRank()));
 }

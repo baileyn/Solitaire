@@ -57,7 +57,7 @@ void CardPileItem::draw(QPainter* painter, CardPile& cardPile)
       }
     }
 
-    Card card = cardPile.top();
+    Card card = cardPile.getTop();
     int y = PADDING * (cardPile.count() - 1);
 
     CardItem::draw(painter, card, 0, y);
@@ -107,10 +107,10 @@ void CardPileItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
 void CardPileItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
 {
-  if(!m_pile.top().isFlipped()) {
-    m_pile.top().flip();
+  if(!m_pile.getTop().isFlipped()) {
+    m_pile.getTop().flip();
   } else {
-    if(window()->playsOnFoundation(m_pile.top())) {
+    if(window()->playsOnFoundation(m_pile.getTop())) {
       m_pile.cards().pop_back();
     }
   }

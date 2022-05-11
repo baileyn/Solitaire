@@ -15,64 +15,19 @@ SelectionPile::SelectionPile(MainWindow* window, TableauPile& original)
   setFlag(GraphicsItemFlag::ItemIsMovable);
 }
 
-bool SelectionPile::accepts(const Card& card)
+bool SelectionPile::accepts(const Card&)
 {
   return true;
 }
 
 QRectF SelectionPile::boundingRect() const
 {
-  // TODO: Come up with a way to take away this code redundancy.
-  qreal height;
-
-  if(isEmpty()) {
-    height = CardItem::HEIGHT;
-  } else {
-    height = (count() - 1) * CardPileItem::PADDING + CardItem::HEIGHT;
-  }
-
-  return QRectF{0, 0, CardItem::WIDTH, height};
+  return CardPileItem::bounds(*this);
 }
 
 void SelectionPile::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-  // TODO: Remove this redundancy too.
-  painter->setPen(CardItem::BLACK_PEN);
-  painter->drawRect(boundingRect());
-
-  if(!isEmpty()) {
-    for(size_t i = 0; i < count() - 1; i++) {
-      Card card = cards().at(i);
-      int y = CardPileItem::PADDING * i;
-
-      if(card.isFlipped()) {
-        painter->setPen(card.isBlack() ? CardItem::BLACK_PEN : CardItem::RED_PEN);
-        painter->drawRect(0, y, CardItem::WIDTH, CardPileItem::PADDING);
-
-        QStaticText text{CardItem::RANKS[card.getRank()]};
-        painter->drawStaticText(2, y, text);
-      } else {
-        painter->fillRect(0, y, CardItem::WIDTH, CardPileItem::PADDING, CardItem::BACK);
-        painter->drawRect(0, y, CardItem::WIDTH, CardPileItem::PADDING);
-      }
-    }
-
-    Card card = top();
-    int y = CardPileItem::PADDING * (count() - 1);
-
-    if(card.isFlipped()) {
-      QStaticText text{CardItem::RANKS[card.getRank()]};
-      auto textSize = text.size();
-      painter->setPen(card.isBlack() ? CardItem::BLACK_PEN : CardItem::RED_PEN);
-      painter->fillRect(0, y, CardItem::WIDTH, CardItem::HEIGHT, QBrush{Qt::white});
-      painter->drawRect(0, y, CardItem::WIDTH, CardItem::HEIGHT);
-      painter->drawStaticText(2, y, text);
-      painter->drawStaticText(CardItem::WIDTH - textSize.width(), y + (CardItem::HEIGHT - textSize.height()), text);
-    } else {
-      painter->fillRect(0, y, CardItem::WIDTH, CardItem::HEIGHT, CardItem::BACK);
-      painter->drawRect(0, y, CardItem::WIDTH, CardItem::HEIGHT);
-    }
-  }
+  CardPileItem::draw(painter, *this);
 }
 
 void SelectionPile::mouseMoveEvent(QGraphicsSceneMouseEvent* event)

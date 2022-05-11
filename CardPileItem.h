@@ -14,8 +14,10 @@ public:
 
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
   QRectF boundingRect() const;
-
   size_t mouseClickToCardIndex(QGraphicsSceneMouseEvent* event);
+
+  static void draw(QPainter* painter, CardPile& cardPile);
+  static QRectF bounds(const CardPile& cardPile);
 
 protected:
   void mousePressEvent(QGraphicsSceneMouseEvent* event);

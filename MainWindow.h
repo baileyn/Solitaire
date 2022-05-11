@@ -20,6 +20,7 @@ public:
 
   void removeCardItem(Card card);
   void resetDeck();
+  bool playsOnFoundation(Card card);
 
 private:
   void initializeGame();

@@ -12,6 +12,7 @@ class CardItem : public GameItem
 {
 public:
   static QString RANKS[];
+  static QString SUITS[];
   static QBrush BACK;
   static QPen RED_PEN;
   static QPen BLACK_PEN;
@@ -28,8 +29,11 @@ public:
 
   Card card();
 
+  static void draw(QPainter* painter, Card& card, qreal x, qreal y);
+
 protected:
   void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+  void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
 
 private:
   Card m_card;

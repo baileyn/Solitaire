@@ -37,6 +37,7 @@ void MainWindow::removeCardItem(Card card)
       if(cardItem->card().getRank() == card.getRank() &&
          cardItem->card().getSuit() == card.getSuit()) {
         m_scene->removeItem(cardItem);
+        m_scene->update();
       }
     }
   }
@@ -52,6 +53,16 @@ void MainWindow::resetDeck()
       m_scene->removeItem(cardItem);
     }
   }
+}
+
+bool MainWindow::playsOnFoundation(Card card)
+{
+  for(auto& foundation : m_foundations) {
+    if(foundation.add(card)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 void MainWindow::initializeGame()

@@ -28,10 +28,10 @@ void Card::flip()
 
 bool Card::isBlack() const
 {
-  return static_cast<int>(m_suit) % 2 == 0;
+  return static_cast<int>(m_suit) % 2 == 1;
 }
 
 bool Card::isRed() const
 {
-  return static_cast<int>(m_suit) % 2 == 1;
+  return static_cast<int>(m_suit) % 2 == 0;
 }

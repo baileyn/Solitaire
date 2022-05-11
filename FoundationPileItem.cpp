@@ -16,23 +16,13 @@ QRectF FoundationPileItem::boundingRect() const
   return QRectF{0, 0, CardItem::WIDTH, CardItem::HEIGHT};
 }
 
-void FoundationPileItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void FoundationPileItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-  QRectF rect = boundingRect();
-
   if(m_pile.isEmpty()) {
     painter->setPen(CardItem::BLACK_PEN);
     painter->drawRect(boundingRect());
   } else {
-    Card card = m_pile.top();
-    painter->fillRect(rect, QBrush{Qt::white});
-    painter->setPen(card.isBlack() ? CardItem::BLACK_PEN : CardItem::RED_PEN);
-    painter->drawRect(rect);
-
-    QStaticText text{CardItem::RANKS[card.getRank()]};
-    auto textSize = text.size();
-    painter->drawStaticText(0, 0, text);
-    painter->drawStaticText(rect.width() - textSize.width(), rect.height() - textSize.height(), text);
+    CardItem::draw(painter, m_pile.top(), 0, 0);
   }
 }
 

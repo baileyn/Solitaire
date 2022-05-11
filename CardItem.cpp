@@ -1,9 +1,12 @@
 #include "CardItem.h"
 
+#include "MainWindow.h"
+
 #include <QtWidgets>
 #include <QList>
 
 QString CardItem::RANKS[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+QString CardItem::SUITS[] = { "♢", "♣", "♡", "♠" };
 QBrush CardItem::BACK = QBrush{Qt::blue};
 QPen CardItem::RED_PEN = QPen{Qt::red};
 QPen CardItem::BLACK_PEN = QPen{Qt::black};
@@ -21,25 +24,31 @@ QRectF CardItem::boundingRect() const
 
 void CardItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-  QRectF rect = boundingRect();
-
-  if(m_card.isFlipped()) {
-    painter->fillRect(rect, QBrush{Qt::white});
-    painter->setPen(m_card.isBlack() ? BLACK_PEN : RED_PEN);
-    painter->drawRect(rect);
-
-    QStaticText text{RANKS[m_card.getRank()]};
-    auto textSize = text.size();
-    painter->drawStaticText(0, 0, text);
-    painter->drawStaticText(rect.width() - textSize.width(), rect.height() - textSize.height(), text);
-  } else {
-    painter->fillRect(rect, BACK);
-  }
+  draw(painter, m_card, 0, 0);
 }
 
 Card CardItem::card()
 {
   return m_card;
+}
+
+void CardItem::draw(QPainter* painter, Card& card, qreal x, qreal y)
+{
+  QRectF rect = QRectF{x, y, CardItem::WIDTH, CardItem::HEIGHT};
+
+  if(card.isFlipped()) {
+    painter->fillRect(rect, QBrush{Qt::white});
+    painter->setPen(card.isBlack() ? CardItem::BLACK_PEN : CardItem::RED_PEN);
+    painter->drawRect(rect);
+
+    QStaticText topLeft{CardItem::RANKS[card.getRank()] + SUITS[card.getSuit()]};
+    QStaticText bottomRight{SUITS[card.getSuit()] + CardItem::RANKS[card.getRank()]};
+    auto textSize = bottomRight.size();
+    painter->drawStaticText(x, y, topLeft);
+    painter->drawStaticText(x + (rect.width() - textSize.width()), y + (rect.height() - textSize.height()), bottomRight);
+  } else {
+    painter->fillRect(rect, CardItem::BACK);
+  }
 }
 
 void CardItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
@@ -67,5 +76,12 @@ void CardItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
   if(action == Qt::MoveAction) {
     scene()->removeItem(this);
+  }
+}
+
+void CardItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
+{
+  if(window()->playsOnFoundation(m_card)) {
+    window()->removeCardItem(m_card);
   }
 }

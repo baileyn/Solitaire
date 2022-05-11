@@ -8,6 +8,11 @@
 class DeckItem : public GameItem
 {
 public:
+  /**
+   * @brief DeckItem create a new DeckItem that represents the specified Deck.
+   * @param window the window to draw the DeckItem on.
+   * @param deck the Deck to be represented by this DeckItem.
+   */
   DeckItem(MainWindow* window, Deck& deck);
 
   QRectF boundingRect() const;

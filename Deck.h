@@ -11,6 +11,7 @@ public:
 
     Card draw();
     void shuffle();
+    bool isEmpty() const;
 
 private:
     Deck(Deck& deck) = delete;

@@ -19,6 +19,11 @@ Card Deck::draw()
     return card;
 }
 
+bool Deck::isEmpty() const
+{
+    return m_cards.size() == 0;
+}
+
 void Deck::shuffle()
 {
     static std::random_device rng;

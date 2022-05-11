@@ -1,7 +1,6 @@
 #include "MainWindow.h"
-#include "Deck.h"
-#include "Card.h"
 #include "CardItem.h"
+#include "DeckItem.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,9 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     deck.shuffle();
 
-    for(int i = 0; i < 5; i++) {
-        scene->addItem(new CardItem{deck.draw()});
-    }
+    scene->addItem(new DeckItem{deck});
 
     setFixedSize(800, 600);
     setCentralWidget(view);

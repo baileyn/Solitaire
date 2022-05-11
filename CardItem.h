@@ -9,19 +9,19 @@
 class CardItem : public QGraphicsItem
 {
 public:
-    CardItem(Card card);
+  CardItem(Card card);
 
-    QRectF boundingRect() const;
-    void paint(QPainter *painter,
-               const QStyleOptionGraphicsItem *option,
-               QWidget *widget);
+  QRectF boundingRect() const;
+  void paint(QPainter *painter,
+             const QStyleOptionGraphicsItem *option,
+             QWidget *widget);
 
 protected:
-    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
+  void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
+  void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
 
 private:
-    Card m_card;
+  Card m_card;
 };
 
 #endif // CARDITEM_H

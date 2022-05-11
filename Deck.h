@@ -7,18 +7,18 @@
 class Deck
 {
 public:
-    Deck();
+  Deck();
 
-    Card draw();
-    void shuffle();
-    bool isEmpty() const;
-
-private:
-    Deck(Deck& deck) = delete;
-    Deck& operator=(Deck& other) = delete;
+  Card& draw();
+  void shuffle();
+  bool isEmpty() const;
 
 private:
-    std::deque<Card> m_cards;
+  Deck(Deck& deck) = delete;
+  Deck& operator=(Deck& other) = delete;
+
+private:
+  std::deque<Card> m_cards;
 };
 
 #endif // DECK_H

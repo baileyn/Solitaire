@@ -2,26 +2,27 @@
 #define MAINWINDOW_H
 
 #include "Deck.h"
+#include "Tableau.h"
 #include <QMainWindow>
 #include <QGraphicsView>
 
-namespace Ui {
-class MainWindow;
-}
-
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+  explicit MainWindow(QWidget *parent = 0);
+  ~MainWindow();
 
 private:
-    QGraphicsView* view;
-    QGraphicsScene* scene;
+  void initializeGame();
 
-    Deck deck;
+private:
+  QGraphicsView* m_view;
+  QGraphicsScene* m_scene;
+
+  Deck m_deck;
+  Tableau m_tableau;
 };
 
 #endif // MAINWINDOW_H

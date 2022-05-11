@@ -10,61 +10,61 @@
 #include <iostream>
 
 CardItem::CardItem(Card card)
-    : m_card{card}
+  : m_card{card}
 {
-    setFlag(GraphicsItemFlag::ItemIsMovable);
+  setFlag(GraphicsItemFlag::ItemIsMovable);
 }
 
 QRectF CardItem::boundingRect() const
 {
-    return QRectF{0, 0, 75, 100};
+  return QRectF{0, 0, 75, 100};
 }
 
-void CardItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void CardItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    static QString RANKS[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+  static QString RANKS[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
-    QRectF rect = boundingRect();
-    int radius = 0;
+  QRectF rect = boundingRect();
+  int radius = 0;
 
-    if(m_card.isFlipped()) {
-        auto red = static_cast<int>(m_card.getSuit()) % 2 == 0;
+  if(m_card.isFlipped()) {
+    auto red = static_cast<int>(m_card.getSuit()) % 2 == 0;
 
-        QPen pen(red ? Qt::red : Qt::black, 1);
-        painter->setPen(pen);
-        painter->drawRoundedRect(rect, radius, radius);
+    QPen pen(red ? Qt::red : Qt::black, 1);
+    painter->setPen(pen);
+    painter->drawRoundedRect(rect, radius, radius);
 
-        QStaticText text{RANKS[m_card.getRank()]};
-        auto textSize = text.size();
-        painter->drawStaticText(0, 0, text);
-        painter->drawStaticText(rect.width() - textSize.width(), rect.height() - textSize.height(), text);
-    } else {
-        painter->fillRect(rect, QBrush{Qt::blue});
-    }
+    QStaticText text{RANKS[m_card.getRank()]};
+    auto textSize = text.size();
+    painter->drawStaticText(0, 0, text);
+    painter->drawStaticText(rect.width() - textSize.width(), rect.height() - textSize.height(), text);
+  } else {
+    painter->fillRect(rect, QBrush{Qt::blue});
+  }
 }
 
 void CardItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    QGraphicsItem::mouseMoveEvent(event);
+  QGraphicsItem::mouseMoveEvent(event);
 
-    auto cardRect = boundingRect();
-    auto location = pos();
+  auto cardRect = boundingRect();
+  auto location = pos();
 
-    if(location.x() < 0) {
-        setPos(0, y());
-    } else if(location.x() + cardRect.width() > scene()->width()) {
-        setPos(scene()->width() - cardRect.width(), y());
-    }
+  if(location.x() < 0) {
+    setPos(0, y());
+  } else if(location.x() + cardRect.width() > scene()->width()) {
+    setPos(scene()->width() - cardRect.width(), y());
+  }
 
-    if(y() < 0) {
-        setPos(x(), 0);
-    } else if(location.y() + cardRect.height() > scene()->height()) {
-        setPos(x(), scene()->height() - cardRect.height());
-    }
+  if(y() < 0) {
+    setPos(x(), 0);
+  } else if(location.y() + cardRect.height() > scene()->height()) {
+    setPos(x(), scene()->height() - cardRect.height());
+  }
 }
 
-void CardItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+void CardItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
 {
-    m_card.flip();
-    update();
+  m_card.flip();
+  update();
 }

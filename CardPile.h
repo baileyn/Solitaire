@@ -7,16 +7,17 @@
 class CardPile
 {
 public:
-    CardPile();
-
-    bool add(Card& card);
-    Card& top();
+  Card& top();
+  bool add(Card& card);
+  bool isEmpty();
 
 protected:
-    virtual bool accepts(const Card& card) const;
+  virtual bool accepts(const Card&) {
+    return false;
+  }
 
 private:
-    std::stack<Card> m_cards;
+  std::stack<Card> m_cards;
 };
 
 #endif // CARDPILE_H

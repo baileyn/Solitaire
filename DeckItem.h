@@ -8,18 +8,18 @@
 class DeckItem : public QGraphicsItem
 {
 public:
-    DeckItem(Deck& deck);
+  DeckItem(Deck& deck);
 
-    QRectF boundingRect() const;
-    void paint(QPainter *painter,
-               const QStyleOptionGraphicsItem *option,
-               QWidget *widget);
+  QRectF boundingRect() const;
+  void paint(QPainter *painter,
+             const QStyleOptionGraphicsItem *option,
+             QWidget *widget);
 
 protected:
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
+  void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
 
 private:
-    Deck& m_deck;
+  Deck& m_deck;
 };
 
 #endif // DECKITEM_H

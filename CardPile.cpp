@@ -10,7 +10,7 @@ size_t CardPile::getCount() const
   return m_cards.size();
 }
 
-std::deque<Card>& CardPile::cards()
+std::deque<Card>& CardPile::getCards()
 {
   return m_cards;
 }

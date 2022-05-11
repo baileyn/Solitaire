@@ -36,9 +36,17 @@ public:
    */
   bool isEmpty() const;
 
+  /**
+   * @brief getCount returns the number of cards in this pile.
+   * @return the number of cards in this pile.
+   */
   size_t getCount() const;
 
-  std::deque<Card>& cards();
+  /**
+   * @brief getCards returns all of the cards on this pile.
+   * @return all of the cards on this pile.
+   */
+  std::deque<Card>& getCards();
 
 protected:
   virtual bool accepts(const Card&) = 0;

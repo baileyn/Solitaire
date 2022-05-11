@@ -37,7 +37,7 @@ void SelectionPile::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
   QList<Card> cardList{};
 
-  for(Card card : cards()) {
+  for(Card card : getCards()) {
     cardList.append(card);
   }
 
@@ -58,7 +58,7 @@ void SelectionPile::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
   Qt::DropAction action = drag->exec();
 
   if(action == Qt::IgnoreAction) {
-    for(Card card : cards()) {
+    for(Card card : getCards()) {
       m_original.add(card, false);
     }
   }

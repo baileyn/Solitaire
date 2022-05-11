@@ -2,6 +2,7 @@
 #include "CardItem.h"
 #include "DeckItem.h"
 #include "CardPileItem.h"
+#include "FoundationPileItem.h"
 
 #include <iostream>
 
@@ -75,6 +76,14 @@ void MainWindow::addComponents()
   for(size_t i = 0; i < Tableau::PILE_COUNT; i++) {
     auto pile = new CardPileItem{this, m_tableau.getPile(i)};
     pile->moveBy((CardItem::WIDTH + 20) * (i + 1), CardItem::HEIGHT + 20);
+    m_scene->addItem(pile);
+  }
+
+  int offsetX = m_view->width() - (CardItem::WIDTH * 4) - (CardPileItem::PADDING * 3);
+
+  for(size_t i = 0; i < 4; i++) {
+    auto pile = new FoundationPileItem{this, m_foundations[i]};
+    pile->moveBy(offsetX + (i * CardItem::WIDTH) + (i * CardPileItem::PADDING), 2);
     m_scene->addItem(pile);
   }
 

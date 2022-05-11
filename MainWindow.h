@@ -2,9 +2,13 @@
 #define MAINWINDOW_H
 
 #include "Deck.h"
+#include "FoundationPile.h"
 #include "Tableau.h"
+
 #include <QMainWindow>
 #include <QGraphicsView>
+
+#include <array>
 
 class MainWindow : public QMainWindow
 {
@@ -27,6 +31,8 @@ private:
 
   Deck m_deck;
   Tableau m_tableau;
+
+  std::array<FoundationPile, 4> m_foundations;
 };
 
 #endif // MAINWINDOW_H

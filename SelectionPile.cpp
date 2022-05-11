@@ -40,8 +40,6 @@ void SelectionPile::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QW
   painter->setPen(CardItem::BLACK_PEN);
   painter->drawRect(boundingRect());
 
-  std::cout << "Rect: " << "(" << boundingRect().width() << " x " << boundingRect().height() << std::endl;
-
   if(!isEmpty()) {
     for(size_t i = 0; i < count() - 1; i++) {
       Card card = cards().at(i);

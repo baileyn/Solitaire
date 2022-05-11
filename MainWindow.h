@@ -16,6 +16,7 @@ public:
 
 private:
   void initializeGame();
+  void addComponents();
 
 private:
   QGraphicsView* m_view;

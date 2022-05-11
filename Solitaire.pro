@@ -33,7 +33,8 @@ SOURCES += \
     CardPile.cpp \
     Tableau.cpp \
     TableauPile.cpp \
-    TableauItem.cpp
+    TableauItem.cpp \
+    CardPileItem.cpp
 
 HEADERS += \
         MainWindow.h \
@@ -44,6 +45,7 @@ HEADERS += \
     CardPile.h \
     Tableau.h \
     TableauPile.h \
-    TableauItem.h
+    TableauItem.h \
+    CardPileItem.h
 
 FORMS +=

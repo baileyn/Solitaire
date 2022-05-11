@@ -3,12 +3,21 @@
 
 #include "Card.h"
 
-#include <QWidget>
+#include <QBrush>
 #include <QGraphicsItem>
+#include <QPen>
 
 class CardItem : public QGraphicsItem
 {
 public:
+  static QString RANKS[];
+  static QBrush BACK;
+  static QPen RED_PEN;
+  static QPen BLACK_PEN;
+
+  static const int WIDTH = 70;
+  static const int HEIGHT = 100;
+
   CardItem(Card card);
 
   QRectF boundingRect() const;

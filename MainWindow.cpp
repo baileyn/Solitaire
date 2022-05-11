@@ -1,6 +1,10 @@
 #include "MainWindow.h"
 #include "CardItem.h"
 #include "DeckItem.h"
+#include "TableauItem.h"
+#include "CardPileItem.h"
+
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
@@ -16,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
   setCentralWidget(m_view);
 
   initializeGame();
+  addComponents();
 }
 
 MainWindow::~MainWindow()
@@ -25,16 +30,28 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeGame()
 {
-  m_scene->addItem(new DeckItem{m_deck});
   m_deck.shuffle();
 
   for(size_t i = 0; i < Tableau::PILE_COUNT; i++) {
-    TableauPile pile = m_tableau.getPile(i);
-/*
-    for(size_t j = 0; j < Tableau::PILE_COUNT; j++) {
-      pile.add(m_deck.draw());
+    TableauPile& pile = m_tableau.getPile(i);
+
+    for(size_t j = 0; j <= i; j++) {
+      pile.add(m_deck.draw(), false);
     }
 
-    pile.top().flip();*/
+    pile.top().flip();
   }
+}
+
+void MainWindow::addComponents()
+{
+  auto deck = new DeckItem{m_deck};
+
+  for(size_t i = 0; i < Tableau::PILE_COUNT; i++) {
+    auto pile = new CardPileItem{m_tableau.getPile(i)};
+    pile->moveBy((CardItem::WIDTH + TableauItem::PADDING) * (i + 1), CardItem::HEIGHT + TableauItem::PADDING);
+    m_scene->addItem(pile);
+  }
+
+  m_scene->addItem(deck);
 }

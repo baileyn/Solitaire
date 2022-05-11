@@ -5,17 +5,27 @@ bool CardPile::isEmpty()
   return m_cards.empty();
 }
 
-Card& CardPile::top()
+size_t CardPile::count()
 {
-  return m_cards.top();
+  return m_cards.size();
 }
 
-bool CardPile::add(Card& card)
+std::vector<Card>& CardPile::cards()
 {
-  if(!accepts(card)) {
+  return m_cards;
+}
+
+Card& CardPile::top()
+{
+  return m_cards.back();
+}
+
+bool CardPile::add(Card& card, bool check)
+{
+  if(check && !accepts(card)) {
     return false;
   }
 
-  m_cards.push(card);
+  m_cards.push_back(card);
   return true;
 }

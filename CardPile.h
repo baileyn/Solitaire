@@ -2,14 +2,16 @@
 #define CARDPILE_H
 
 #include "Card.h"
-#include <stack>
+#include <vector>
 
 class CardPile
 {
 public:
   Card& top();
-  bool add(Card& card);
+  bool add(Card& card, bool check=true);
   bool isEmpty();
+  size_t count();
+  std::vector<Card>& cards();
 
 protected:
   virtual bool accepts(const Card&) {
@@ -17,7 +19,7 @@ protected:
   }
 
 private:
-  std::stack<Card> m_cards;
+  std::vector<Card> m_cards;
 };
 
 #endif // CARDPILE_H

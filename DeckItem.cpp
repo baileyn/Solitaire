@@ -12,7 +12,7 @@ DeckItem::DeckItem(Deck& deck)
 
 QRectF DeckItem::boundingRect() const
 {
-  return QRectF{0, 0, 75, 100};
+  return QRectF{0, 0, CardItem::WIDTH, CardItem::HEIGHT};
 }
 
 void DeckItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)

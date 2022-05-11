@@ -1,13 +1,15 @@
 #include "CardItem.h"
 
-#include <QDebug>
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QPen>
 #include <QStaticText>
 #include <string>
 
-#include <iostream>
+QString CardItem::RANKS[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+QBrush CardItem::BACK = QBrush{Qt::blue};
+QPen CardItem::RED_PEN = QPen{Qt::red};
+QPen CardItem::BLACK_PEN = QPen{Qt::black};
 
 CardItem::CardItem(Card card)
   : m_card{card}
@@ -17,29 +19,24 @@ CardItem::CardItem(Card card)
 
 QRectF CardItem::boundingRect() const
 {
-  return QRectF{0, 0, 75, 100};
+  return QRectF{0, 0, WIDTH, HEIGHT};
 }
 
 void CardItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-  static QString RANKS[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-
   QRectF rect = boundingRect();
-  int radius = 0;
 
   if(m_card.isFlipped()) {
-    auto red = static_cast<int>(m_card.getSuit()) % 2 == 0;
-
-    QPen pen(red ? Qt::red : Qt::black, 1);
-    painter->setPen(pen);
-    painter->drawRoundedRect(rect, radius, radius);
+    painter->fillRect(rect, QBrush{Qt::white});
+    painter->setPen(m_card.isBlack() ? BLACK_PEN : RED_PEN);
+    painter->drawRect(rect);
 
     QStaticText text{RANKS[m_card.getRank()]};
     auto textSize = text.size();
     painter->drawStaticText(0, 0, text);
     painter->drawStaticText(rect.width() - textSize.width(), rect.height() - textSize.height(), text);
   } else {
-    painter->fillRect(rect, QBrush{Qt::blue});
+    painter->fillRect(rect, BACK);
   }
 }
 

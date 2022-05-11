@@ -2,16 +2,17 @@
 #define CARDPILE_H
 
 #include "Card.h"
-#include <vector>
+#include <deque>
 
 class CardPile
 {
 public:
   Card& top();
   bool add(Card card, bool check=true);
-  bool isEmpty();
-  size_t count();
-  std::vector<Card>& cards();
+  bool isEmpty() const;
+  size_t count() const;
+
+  std::deque<Card>& cards();
 
 protected:
   virtual bool accepts(const Card&) {
@@ -19,7 +20,7 @@ protected:
   }
 
 private:
-  std::vector<Card> m_cards;
+  std::deque<Card> m_cards;
 };
 
 #endif // CARDPILE_H

@@ -1,16 +1,16 @@
 #include "CardPile.h"
 
-bool CardPile::isEmpty()
+bool CardPile::isEmpty() const
 {
   return m_cards.empty();
 }
 
-size_t CardPile::count()
+size_t CardPile::count() const
 {
   return m_cards.size();
 }
 
-std::vector<Card>& CardPile::cards()
+std::deque<Card>& CardPile::cards()
 {
   return m_cards;
 }

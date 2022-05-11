@@ -19,10 +19,11 @@ public:
 
 protected:
   void mousePressEvent(QGraphicsSceneMouseEvent* event);
+  void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
   void dropEvent(QGraphicsSceneDragDropEvent* event);
 
 private:
-  CardPile& m_pile;
+  CardPile m_pile;
 };
 
 #endif // CARDPILEITEM_H

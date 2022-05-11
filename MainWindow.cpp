@@ -42,6 +42,18 @@ void MainWindow::removeCardItem(Card card)
   }
 }
 
+void MainWindow::resetDeck()
+{
+  for(auto item : m_scene->items()) {
+    CardItem* cardItem = dynamic_cast<CardItem*>(item);
+
+    if(cardItem) {
+      m_deck.add(cardItem->card());
+      m_scene->removeItem(cardItem);
+    }
+  }
+}
+
 void MainWindow::initializeGame()
 {
   m_deck.shuffle();

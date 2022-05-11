@@ -12,9 +12,9 @@ Deck::Deck()
   }
 }
 
-Card& Deck::draw()
+Card Deck::draw()
 {
-  Card& card = m_cards.back();
+  Card card = m_cards.back();
   m_cards.pop_back();
   return card;
 }
@@ -29,4 +29,9 @@ void Deck::shuffle()
   static std::random_device rng;
   static std::mt19937 urng(rng());
   std::shuffle(m_cards.begin(), m_cards.end(), urng);
+}
+
+void Deck::add(Card card)
+{
+  m_cards.push_back(card);
 }

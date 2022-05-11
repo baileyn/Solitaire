@@ -1,6 +1,8 @@
 #include "DeckItem.h"
 
 #include "CardItem.h"
+#include "MainWindow.h"
+
 #include <QBrush>
 #include <QGraphicsScene>
 
@@ -31,11 +33,16 @@ void DeckItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
 void DeckItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
 {
   if(m_deck.isEmpty()) {
+    window()->resetDeck();
+    update();
     return;
   }
 
   auto card = m_deck.draw();
-  card.flip();
+
+  if(!card.isFlipped()) {
+    card.flip();
+  }
 
   CardItem* item = new CardItem{window(), card};
   item->moveBy(0, boundingRect().height() + 10);

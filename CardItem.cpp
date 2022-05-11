@@ -61,9 +61,3 @@ void CardItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
   drag->exec();
 }
-
-void CardItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
-{
-  m_card.flip();
-  update();
-}

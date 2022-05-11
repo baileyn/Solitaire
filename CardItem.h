@@ -30,7 +30,6 @@ public:
 
 protected:
   void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-  void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
 
 private:
   Card m_card;

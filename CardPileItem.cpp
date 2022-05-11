@@ -26,6 +26,7 @@ void CardPileItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWi
       int y = PADDING * i;
 
       if(card.isFlipped()) {
+        painter->setPen(card.isBlack() ? CardItem::BLACK_PEN : CardItem::RED_PEN);
         painter->drawRect(0, y, CardItem::WIDTH, PADDING);
 
         QStaticText text{CardItem::RANKS[card.getRank()]};

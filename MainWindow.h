@@ -15,6 +15,7 @@ public:
   ~MainWindow();
 
   void removeCardItem(Card card);
+  void resetDeck();
 
 private:
   void initializeGame();

@@ -9,8 +9,9 @@ class Deck
 public:
   Deck();
 
-  Card& draw();
+  Card draw();
   void shuffle();
+  void add(Card card);
   bool isEmpty() const;
 
 private:

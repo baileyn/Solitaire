@@ -6,7 +6,7 @@ Card::Card(Suit suit, int rank)
 
 }
 
-Suit Card::getSuit() const
+Card::Suit Card::getSuit() const
 {
     return m_suit;
 }
@@ -21,7 +21,7 @@ bool Card::isFlipped() const
     return m_flipped;
 }
 
-void flip()
+void Card::flip()
 {
     m_flipped = !m_flipped;
 }

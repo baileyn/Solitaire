@@ -1,7 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "Deck.h"
 #include <QMainWindow>
+#include <QGraphicsView>
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +18,10 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    QGraphicsView* view;
+    QGraphicsScene* scene;
+
+    Deck deck;
 };
 
 #endif // MAINWINDOW_H

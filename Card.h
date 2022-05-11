@@ -5,8 +5,10 @@ class Card
 {
 public:
     enum Suit {
-        DIAMONDS, CLUBS, HEARTS, SPADES
+        DIAMONDS, CLUBS, HEARTS, SPADES, MAX_SUIT
     };
+
+    static const int MAX_RANK = 13;
 
     Card(Suit suit, int rank);
 

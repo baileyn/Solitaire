@@ -13,8 +13,8 @@
 CardPileItem::CardPileItem(MainWindow* window, CardPile& pile)
   : GameItem{window}
 {
-  for(auto i : pile.cards()) {
-    m_pile.cards().push_back(i);
+  for(auto i : pile.getCards()) {
+    m_pile.getCards().push_back(i);
   }
 
   setAcceptDrops(true);
@@ -41,7 +41,7 @@ void CardPileItem::draw(QPainter* painter, CardPile& cardPile)
 
   if(!cardPile.isEmpty()) {
     for(size_t i = 0; i < cardPile.getCount() - 1; i++) {
-      Card card = cardPile.cards().at(i);
+      Card card = cardPile.getCards().at(i);
       int y = PADDING * i;
 
       if(card.isFlipped()) {
@@ -81,7 +81,7 @@ void CardPileItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
   auto cardIdx = mouseClickToCardIndex(event);
 
-  if(m_pile.isEmpty() || !m_pile.cards().at(cardIdx).isFlipped()) {
+  if(m_pile.isEmpty() || !m_pile.getCards().at(cardIdx).isFlipped()) {
     event->ignore();
     return;
   }
@@ -91,11 +91,11 @@ void CardPileItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
   SelectionPile* item = new SelectionPile(window(), m_pile);
 
   for(size_t i = cardIdx; i < m_pile.getCount(); i++) {
-    Card card = m_pile.cards()[i];
-    item->cards().push_back(card);
+    Card card = m_pile.getCards()[i];
+    item->getCards().push_back(card);
   }
 
-  m_pile.cards().erase(m_pile.cards().begin() + cardIdx, m_pile.cards().end());
+  m_pile.getCards().erase(m_pile.getCards().begin() + cardIdx, m_pile.getCards().end());
   item->moveBy(origin.x(), origin.y() + (cardIdx * PADDING));
 
   scene()->addItem(item);
@@ -111,7 +111,7 @@ void CardPileItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
     m_pile.getTop().flip();
   } else {
     if(window()->playsOnFoundation(m_pile.getTop())) {
-      m_pile.cards().pop_back();
+      m_pile.getCards().pop_back();
     }
   }
 

@@ -32,7 +32,7 @@ QRectF CardPileItem::boundingRect() const
 
 size_t CardPileItem::mouseClickToCardIndex(QGraphicsSceneMouseEvent* event)
 {
-  return std::min(static_cast<size_t>(event->pos().y() / PADDING), m_pile.count() - 1);
+  return std::min(static_cast<size_t>(event->pos().y() / PADDING), m_pile.getCount() - 1);
 }
 
 void CardPileItem::draw(QPainter* painter, CardPile& cardPile)
@@ -40,7 +40,7 @@ void CardPileItem::draw(QPainter* painter, CardPile& cardPile)
   painter->drawRect(bounds(cardPile));
 
   if(!cardPile.isEmpty()) {
-    for(size_t i = 0; i < cardPile.count() - 1; i++) {
+    for(size_t i = 0; i < cardPile.getCount() - 1; i++) {
       Card card = cardPile.cards().at(i);
       int y = PADDING * i;
 
@@ -58,7 +58,7 @@ void CardPileItem::draw(QPainter* painter, CardPile& cardPile)
     }
 
     Card card = cardPile.getTop();
-    int y = PADDING * (cardPile.count() - 1);
+    int y = PADDING * (cardPile.getCount() - 1);
 
     CardItem::draw(painter, card, 0, y);
   }
@@ -71,7 +71,7 @@ QRectF CardPileItem::bounds(const CardPile& cardPile)
   if(cardPile.isEmpty()) {
     height = CardItem::HEIGHT;
   } else {
-    height = (cardPile.count() - 1) * PADDING + CardItem::HEIGHT;
+    height = (cardPile.getCount() - 1) * PADDING + CardItem::HEIGHT;
   }
 
   return QRectF{0, 0, CardItem::WIDTH, height};
@@ -90,7 +90,7 @@ void CardPileItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
   SelectionPile* item = new SelectionPile(window(), m_pile);
 
-  for(size_t i = cardIdx; i < m_pile.count(); i++) {
+  for(size_t i = cardIdx; i < m_pile.getCount(); i++) {
     Card card = m_pile.cards()[i];
     item->cards().push_back(card);
   }

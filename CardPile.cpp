@@ -5,7 +5,7 @@ bool CardPile::isEmpty() const
   return m_cards.empty();
 }
 
-size_t CardPile::count() const
+size_t CardPile::getCount() const
 {
   return m_cards.size();
 }

@@ -36,7 +36,7 @@ public:
    */
   bool isEmpty() const;
 
-  size_t count() const;
+  size_t getCount() const;
 
   std::deque<Card>& cards();
 

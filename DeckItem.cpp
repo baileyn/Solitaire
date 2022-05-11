@@ -37,5 +37,6 @@ void DeckItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
     card.flip();
 
     CardItem* item = new CardItem{card};
+    item->moveBy(0, boundingRect().height() + 10);
     scene()->addItem(item);
 }

@@ -29,13 +29,15 @@ SOURCES += \
     Card.cpp \
     Deck.cpp \
     CardItem.cpp \
-    DeckItem.cpp
+    DeckItem.cpp \
+    CardPile.cpp
 
 HEADERS += \
         MainWindow.h \
     Card.h \
     Deck.h \
     CardItem.h \
-    DeckItem.h
+    DeckItem.h \
+    CardPile.h
 
 FORMS +=

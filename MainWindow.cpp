@@ -34,8 +34,8 @@ void MainWindow::removeCardItem(Card card)
     CardItem* cardItem = dynamic_cast<CardItem*>(item);
 
     if(cardItem) {
-      if(cardItem->card().getRank() == card.getRank() &&
-         cardItem->card().getSuit() == card.getSuit()) {
+      if(cardItem->getCard().getRank() == card.getRank() &&
+         cardItem->getCard().getSuit() == card.getSuit()) {
         m_scene->removeItem(cardItem);
         m_scene->update();
       }
@@ -49,7 +49,7 @@ void MainWindow::resetDeck()
     CardItem* cardItem = dynamic_cast<CardItem*>(item);
 
     if(cardItem) {
-      m_deck.add(cardItem->card());
+      m_deck.add(cardItem->getCard());
       m_scene->removeItem(cardItem);
     }
   }

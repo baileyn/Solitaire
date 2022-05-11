@@ -11,5 +11,5 @@ bool TableauPile::accepts(const Card& card)
     return card.getRank() == Card::KING;
   }
 
-  return false;
+  return top().isFlipped() && (top().isBlack() != card.isBlack());
 }

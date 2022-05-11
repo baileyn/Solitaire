@@ -20,6 +20,8 @@ public:
 
   bool isFlipped() const;
   void flip();
+  bool isBlack() const;
+  bool isRed() const;
 
 private:
   Suit m_suit;

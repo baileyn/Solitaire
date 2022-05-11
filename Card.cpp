@@ -25,3 +25,13 @@ void Card::flip()
 {
   m_flipped = !m_flipped;
 }
+
+bool Card::isBlack() const
+{
+  return static_cast<int>(m_rank) % 2 == 0;
+}
+
+bool Card::isRed() const
+{
+  return static_cast<int>(m_rank) % 2 == 1;
+}

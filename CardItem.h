@@ -26,6 +26,8 @@ public:
              const QStyleOptionGraphicsItem *option,
              QWidget *widget);
 
+  Card card();
+
 protected:
   void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
   void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);

@@ -8,7 +8,7 @@ class CardPile
 {
 public:
   Card& top();
-  bool add(Card& card, bool check=true);
+  bool add(Card card, bool check=true);
   bool isEmpty();
   size_t count();
   std::vector<Card>& cards();

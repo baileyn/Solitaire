@@ -2,11 +2,8 @@
 
 #include "Card.h"
 #include "CardItem.h"
-#include <QBrush>
-#include <QGraphicsScene>
-#include <QGraphicsSceneMouseEvent>
-#include <QPainter>
-#include <QStaticText>
+
+#include <QtWidgets>
 
 #include <algorithm>
 #include <iostream>
@@ -14,6 +11,7 @@
 CardPileItem::CardPileItem(MainWindow* window, CardPile& pile)
   : GameItem{window}, m_pile{pile}
 {
+  setAcceptDrops(true);
 }
 
 void CardPileItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
@@ -80,4 +78,17 @@ void CardPileItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
   std::cout << cardIdx << std::endl;
 
   scene()->addRect(origin.x(), origin.y(), CardItem::WIDTH, cardIdx * PADDING);
+}
+
+void CardPileItem::dropEvent(QGraphicsSceneDragDropEvent* event)
+{
+  Card card = *(Card*)event->mimeData()->property("card").data();
+
+  if(m_pile.add(card)) {
+    update();
+    event->setAccepted(true);
+  } else {
+    std::cout << "Doesn't play there" << std::endl;
+    event->setAccepted(false);
+  }
 }

@@ -1,6 +1,8 @@
 #ifndef CARD_H
 #define CARD_H
 
+#include <QMetaType>
+
 class Card
 {
 public:
@@ -13,6 +15,7 @@ public:
     NINE, TEN, JACK, QUEEN, KING, MAX_RANK
   };
 
+  Card() {}
   Card(Suit suit, Rank rank);
 
   Suit getSuit() const;
@@ -28,5 +31,7 @@ private:
   Rank m_rank;
   bool m_flipped;
 };
+
+Q_DECLARE_METATYPE(Card)
 
 #endif // CARD_H

@@ -1,10 +1,6 @@
 #include "CardItem.h"
 
-#include <QGraphicsScene>
-#include <QPainter>
-#include <QPen>
-#include <QStaticText>
-#include <string>
+#include <QtWidgets>
 
 QString CardItem::RANKS[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 QBrush CardItem::BACK = QBrush{Qt::blue};
@@ -40,24 +36,30 @@ void CardItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
   }
 }
 
+Card CardItem::card()
+{
+  return m_card;
+}
+
 void CardItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-  QGraphicsItem::mouseMoveEvent(event);
+  QDrag *drag = new QDrag(event->widget());
+  QMimeData *mime = new QMimeData;
+  mime->setProperty("card", qVariantFromValue(card()));
+  drag->setMimeData(mime);
 
-  auto cardRect = boundingRect();
-  auto location = pos();
+  QPixmap pixmap(CardItem::WIDTH, CardItem::HEIGHT);
+  pixmap.fill(Qt::white);
 
-  if(location.x() < 0) {
-    setPos(0, y());
-  } else if(location.x() + cardRect.width() > scene()->width()) {
-    setPos(scene()->width() - cardRect.width(), y());
-  }
+  QPainter painter(&pixmap);
+  painter.setRenderHint(QPainter::Antialiasing);
+  paint(&painter, 0, 0);
+  painter.end();
 
-  if(y() < 0) {
-    setPos(x(), 0);
-  } else if(location.y() + cardRect.height() > scene()->height()) {
-    setPos(x(), scene()->height() - cardRect.height());
-  }
+  drag->setPixmap(pixmap);
+  drag->setHotSpot(QPoint(CardItem::WIDTH / 2, CardItem::HEIGHT / 2));
+
+  drag->exec();
 }
 
 void CardItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)

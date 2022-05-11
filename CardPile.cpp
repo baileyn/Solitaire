@@ -20,7 +20,7 @@ Card& CardPile::top()
   return m_cards.back();
 }
 
-bool CardPile::add(Card& card, bool check)
+bool CardPile::add(Card card, bool check)
 {
   if(check && !accepts(card)) {
     return false;

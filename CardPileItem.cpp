@@ -2,6 +2,7 @@
 
 #include "Card.h"
 #include "CardItem.h"
+#include "SelectionPile.h"
 #include "MainWindow.h"
 
 #include <QtWidgets>
@@ -86,20 +87,22 @@ void CardPileItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
   }
 
   QPointF origin = pos();
-  TableauPile selectionPile{};
 
+  SelectionPile* item = new SelectionPile(window(), m_pile);
   auto oldRect = boundingRect();
 
   for(int i = cardIdx; i < m_pile.count(); i++) {
-    Card card = m_pile.cards().back();
-    m_pile.cards().pop_back();
-    selectionPile.cards().push_front(card);
+    Card card = m_pile.cards()[i];
+    item->cards().push_back(card);
   }
 
-  CardPileItem* item = new CardPileItem(window(), selectionPile);
-  item->moveBy(origin.x(), origin.y() + oldRect.height() - CardItem::HEIGHT);
+  m_pile.cards().erase(m_pile.cards().begin() + cardIdx, m_pile.cards().end());
+  item->moveBy(origin.x(), origin.y() + (cardIdx * PADDING));
+
   scene()->addItem(item);
 
+  event->setPos(QPointF{event->pos().x(), event->pos().y() - cardIdx * PADDING});
+  item->fireMouseMoveEvent(event);
   scene()->update();
 }
 
@@ -114,14 +117,15 @@ void CardPileItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 
 void CardPileItem::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
-  Card card = *(Card*)event->mimeData()->property("card").data();
+  QList<Card> cards = *(QList<Card>*)event->mimeData()->property("cards").data();
 
-  if(m_pile.add(card)) {
-    window()->removeCardItem(card);
-    update();
-    event->setAccepted(true);
-  } else {
-    std::cout << "Doesn't play there" << std::endl;
-    event->setAccepted(false);
+  for(Card card : cards) {
+    if(m_pile.add(card)) {
+      event->setAccepted(true);
+    } else {
+      event->setAccepted(false);
+    }
   }
+
+  update();
 }

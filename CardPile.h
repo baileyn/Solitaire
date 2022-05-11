@@ -7,6 +7,8 @@
 class CardPile
 {
 public:
+  virtual ~CardPile() {}
+
   Card& top();
   bool add(Card card, bool check=true);
   bool isEmpty() const;
@@ -15,9 +17,7 @@ public:
   std::deque<Card>& cards();
 
 protected:
-  virtual bool accepts(const Card&) {
-    return false;
-  }
+  virtual bool accepts(const Card&) = 0;
 
 private:
   std::deque<Card> m_cards;

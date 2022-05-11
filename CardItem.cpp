@@ -1,6 +1,7 @@
 #include "CardItem.h"
 
 #include <QtWidgets>
+#include <QList>
 
 QString CardItem::RANKS[] = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 QBrush CardItem::BACK = QBrush{Qt::blue};
@@ -45,7 +46,10 @@ void CardItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
   QDrag *drag = new QDrag(event->widget());
   QMimeData *mime = new QMimeData;
-  mime->setProperty("card", qVariantFromValue(card()));
+
+  QList<Card> list{};
+  list.append(card());
+  mime->setProperty("cards", qVariantFromValue(list));
   drag->setMimeData(mime);
 
   QPixmap pixmap(CardItem::WIDTH, CardItem::HEIGHT);
@@ -59,5 +63,9 @@ void CardItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
   drag->setPixmap(pixmap);
   drag->setHotSpot(QPoint(CardItem::WIDTH / 2, CardItem::HEIGHT / 2));
 
-  drag->exec();
+  Qt::DropAction action = drag->exec();
+
+  if(action == Qt::MoveAction) {
+    scene()->removeItem(this);
+  }
 }

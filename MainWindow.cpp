@@ -1,7 +1,6 @@
 #include "MainWindow.h"
 #include "CardItem.h"
 #include "DeckItem.h"
-#include "TableauItem.h"
 #include "CardPileItem.h"
 
 #include <iostream>
@@ -75,7 +74,7 @@ void MainWindow::addComponents()
 
   for(size_t i = 0; i < Tableau::PILE_COUNT; i++) {
     auto pile = new CardPileItem{this, m_tableau.getPile(i)};
-    pile->moveBy((CardItem::WIDTH + TableauItem::PADDING) * (i + 1), CardItem::HEIGHT + TableauItem::PADDING);
+    pile->moveBy((CardItem::WIDTH + 20) * (i + 1), CardItem::HEIGHT + 20);
     m_scene->addItem(pile);
   }
 

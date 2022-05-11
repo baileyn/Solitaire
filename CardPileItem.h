@@ -1,8 +1,8 @@
 #ifndef CARDPILEITEM_H
 #define CARDPILEITEM_H
 
-#include "CardPile.h"
 #include "GameItem.h"
+#include "TableauPile.h"
 #include <QGraphicsItem>
 
 class CardPileItem : public GameItem
@@ -23,7 +23,7 @@ protected:
   void dropEvent(QGraphicsSceneDragDropEvent* event);
 
 private:
-  CardPile m_pile;
+  TableauPile m_pile;
 };
 
 #endif // CARDPILEITEM_H

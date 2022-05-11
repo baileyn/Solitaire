@@ -40,6 +40,8 @@ void SelectionPile::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QW
   painter->setPen(CardItem::BLACK_PEN);
   painter->drawRect(boundingRect());
 
+  std::cout << "Rect: " << "(" << boundingRect().width() << " x " << boundingRect().height() << std::endl;
+
   if(!isEmpty()) {
     for(size_t i = 0; i < count() - 1; i++) {
       Card card = cards().at(i);
@@ -89,7 +91,7 @@ void SelectionPile::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
   mime->setProperty("cards", qVariantFromValue(cardList));
   drag->setMimeData(mime);
 
-  QPixmap pixmap(CardItem::WIDTH, CardItem::HEIGHT);
+  QPixmap pixmap(boundingRect().width(), boundingRect().height());
   pixmap.fill(Qt::white);
 
   QPainter painter(&pixmap);

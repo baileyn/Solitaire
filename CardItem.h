@@ -27,7 +27,11 @@ public:
              const QStyleOptionGraphicsItem *option,
              QWidget *widget);
 
-  Card card();
+  /**
+   * @brief getCard returns the card that this item represents.
+   * @return the card that this item represents.
+   */
+  Card getCard();
 
   static void draw(QPainter* painter, Card& card, qreal x, qreal y);
 

@@ -27,7 +27,7 @@ void CardItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget
   draw(painter, m_card, 0, 0);
 }
 
-Card CardItem::card()
+Card CardItem::getCard()
 {
   return m_card;
 }
@@ -57,7 +57,7 @@ void CardItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
   QMimeData *mime = new QMimeData;
 
   QList<Card> list{};
-  list.append(card());
+  list.append(getCard());
   mime->setProperty("cards", qVariantFromValue(list));
   drag->setMimeData(mime);
 
